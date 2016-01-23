@@ -1,1 +1,100 @@
-.
+
+public class Calculator {
+
+    public int add(int a, int b){
+        return a+b;
+    }
+ 
+    public int subtract(int a, int b){
+        return a-b;
+    }
+     
+    public int multiply(int a, int b){
+        return a * b;
+    }
+ 
+    public int divide(int a, int b){
+        return a/b;
+    } 
+}// end Calculator
+ 
+
+
+
+import com.csvreader.CsvReader
+
+public class CSVDataProvider {
+public static CsvReader reader = null;
+public static Object [] [] csvdata = null;
+
+public static String getPath(String filename) {
+String path = CSVFileReader.class.getClassLoader().getResource("<file_name>").getPath();
+return path;
+} // end getPath
+
+public static void getCSVData (String fileName) {
+int i=0;
+data = new Object [4] [4];
+reader = new CsvReader(filename);
+while(reader.readRecord()) {
+data [i] [0] = reader.get(0);
+data [i] [1] = reader.get(1);
+data [i] [2] = reader.get(2);
+data [i] [3] = reader.get(3);
+i++; 
+} // end getCSVData
+
+}//end CSVDataProvider 
+
+
+
+
+ 
+import com.csv.CSVDataProvider;
+import org.testng.Assert.*;
+import org.testng.annotations.*; 
+
+package com.dataprovider;
+
+public class DataProviderClass {
+@DataProvider (name="CSVDataProvider")
+public static Object [] [] getCSVData() {
+CSVDataProvider.getCSVData("file_name.csv");
+}
+}
+
+
+
+public class TestCalculator {
+ 
+   @Test(DataProvider = "CSVDataProvider")
+ 
+   public void TestOperation (String n1, String n2, String operation, String result) {
+
+if (operation="Addition") {
+   
+        Calculator calculator = new Calculator();
+        Assert.assertEquals(calculator.add(Integer.parseInt(n1), Integer.parseInt(n2), Integer.parseInt(result));
+    }
+
+if (operation="Subtraction") {
+   
+        Calculator calculator = new Calculator();
+        Assert.assertEquals(calculator.subtract(Integer.parseInt(n1), Integer.parseInt(n2), Integer.parseInt(result));
+    }
+
+if (operation="Multiplication") {
+   
+        Calculator calculator = new Calculator();
+        Assert.assertEquals(calculator.multiply(Integer.parseInt(n1), Integer.parseInt(n2), Integer.parseInt(result));
+    }
+
+if (operation="Division") {
+   
+        Calculator calculator = new Calculator();
+        Assert.assertEquals(calculator.divide(Integer.parseInt(n1), Integer.parseInt(n2), Integer.parseInt(result));
+    }
+
+      }// end TestOperation
+
+} // end TestCalculator 
